@@ -1,0 +1,25 @@
+# use base image.
+FROM amazonlinux:2
+
+#install wget
+RUN yum install wget tar -y
+
+#install tar
+#RUN yum install tar -y
+
+
+
+# install nginx.
+RUN set -x \
+  && wget https://nginx.org/packages/rhel/7/x86_64/RPMS/nginx-1.14.0-1.el7_4.ngx.x86_64.rpm --quiet \
+  && yum install -y nginx-1.14.0-1.el7_4.ngx.x86_64.rpm \
+  && rm nginx-1.14.0-1.el7_4.ngx.x86_64.rpm
+
+
+# install NodeJs
+WORKDIR /tmp \
+RUN set -x \
+&& wget http://nodejs.org/dist/v6.3.1/node-v12.14.1-linux-x64.tar.xz \
+&& tar -xvfz node-v6.3.1-linux-x64.tar.gz > /dev/null \
+&& mkdir -p /usr/local/nodejs \
+&& mv node-v6.3.1-linux-x64/* /usr/local/nodejs
